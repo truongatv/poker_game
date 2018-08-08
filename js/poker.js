@@ -72,8 +72,8 @@ new_game.addEventListener('click', function(){
                         else if(row_poker_score[row*10 + column] !== row_poker_score[k]) {
                             row_poker_score[k] -= 100;
                             row_poker_score[row*10+column] -= 100;
-                            card_temp_1 = document.getElementById(+parseInt(session[row*10+column]/10)+session[row*10+column]%10);
-                            card_temp_2 = document.getElementById(parseInt(session[k]/10)+session[k]%10);
+                            card_temp_1 = document.getElementById(session[row*10+column]);
+                            card_temp_2 = document.getElementById(session[k]);
                             // alert('new-session');
                             // card_temp_1.src = "png/z02.png";
                             // card_temp_2.src = "png/z02.png"
