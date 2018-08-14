@@ -1,7 +1,5 @@
 //variable
-var list_poker = new Object();
-list_poker.card = ["c01.png","c02.png","c03.png","c04.png","c05.png","c06.png","c07.png","c08.png","c09.png","c10.png","c11.png","c12.png","c13.png","d01.png","d02.png","d03.png","d04.png","d05.png","d06.png","d02.png","d08.png","d09.png","d10.png","d11.png","d12.png","d13.png","h01.png","h02.png","h03.png","h04.png","h05.png","h06.png","h07.png","h08.png","h09.png","h10.png","h11.png","h12.png","h13.png","s01.png","s02.png","s03.png","s04.png","s05.png","s06.png","s07.png","s08.png","s09.png","s10.png","s11.png","s12.png","s13.png"];
-list_poker.score = [1,2,3,4,5,6,7,8,9,10,11,12,13,1,2,3,4,5,6,7,8,9,10,11,12,13,1,2,3,4,5,6,7,8,9,10,11,12,13,1,2,3,4,5,6,7,8,9,10,11,12,13];
+
 var row_poker = new Array();
 var row_poker_score = new Array();
 var player_score = new Array();
@@ -18,22 +16,34 @@ var status = 0;
 var loop =0;
 var session = new Array();
 
-//main
+//main////
 
 new_game.addEventListener('click', function(){
+    var player_1_score = document.getElementById('player-1-score');
+    var player_2_score = document.getElementById('player-2-score');
+    var player_score = [0,0];
+    player_1_score.innerText = player_score[0]
+    player_2_score.innerText = player_score[1]
+    var flag=1;
     var card_temp_1, card_temp_2;
-    console.log("new game");
+    var list_poker = new Object();
+    row_poker[0].innerHTML = '';
+    row_poker[1].innerHTML = '';
+    row_poker[2].innerHTML = '';
+    row_poker[3].innerHTML = '';
+    row_poker[4].innerHTML = '';
+    row_poker[5].innerHTML = '';
+    list_poker.card = ["c01.png","c02.png","c03.png","c04.png","c05.png","c06.png","c07.png","c08.png","c09.png","c10.png","c11.png","c12.png","c13.png","d01.png","d02.png","d03.png","d04.png","d05.png","d06.png","d02.png","d08.png","d09.png","d10.png","d11.png","d12.png","d13.png","h01.png","h02.png","h03.png","h04.png","h05.png","h06.png","h07.png","h08.png","h09.png","h10.png","h11.png","h12.png","h13.png","s01.png","s02.png","s03.png","s04.png","s05.png","s06.png","s07.png","s08.png","s09.png","s10.png","s11.png","s12.png","s13.png"];
+    list_poker.score = [1,2,3,4,5,6,7,8,9,10,11,12,13,1,2,3,4,5,6,7,8,9,10,11,12,13,1,2,3,4,5,6,7,8,9,10,11,12,13,1,2,3,4,5,6,7,8,9,10,11,12,13];
     for(i=0;i<6;i++){
         for(j=0;j<9;j++){
             if(list_poker.card.length <= 0){
-                console.log("test");
                 break;
             }
             random_num = Math.floor(Math.random()*list_poker.card.length);
             row_poker[i][j]="png/"+list_poker.card[random_num].toString();
             var new_card = document.createElement('img');
             new_card.src = "png/z02.png";
-            // new_card.src = "png/"+list_poker.card[random_num].toString();
             new_card.setAttribute("class", "card");
             row_poker_score[i*10+j] = list_poker.score[random_num];
             new_card.setAttribute("id", i*10+j);
@@ -55,9 +65,7 @@ new_game.addEventListener('click', function(){
                     }
                     if(row_poker_score[k] > 100) {
                         loop = 2;
-                        console.log("if")
                         if(row_poker_score[row*10 + column] === row_poker_score[k]){
-                            console.log("done");
                             row_poker_score[k] -= 100;
                             row_poker_score[row*10+column] -= 100;
                             card_temp_1 = document.getElementById(session[row*10+column]);
@@ -65,8 +73,17 @@ new_game.addEventListener('click', function(){
                             card_temp_1.style.visibility = "hidden";
                             card_temp_2.style.visibility = "hidden";
                             status = 1;
+                            if(flag == 1){
+                                player_score[0] += 1;
+                                player_1_score.innerText = player_score[0];
+                            }
+                            else {
+                                player_score[1]+=1;
+                                player_2_score.innerText = player_score[1];
+                            }
                             alert('done');
                             loop = 0;
+
                             break;
                         }
                         else if(row_poker_score[row*10 + column] !== row_poker_score[k]) {
@@ -74,9 +91,8 @@ new_game.addEventListener('click', function(){
                             row_poker_score[row*10+column] -= 100;
                             card_temp_1 = document.getElementById(session[row*10+column]);
                             card_temp_2 = document.getElementById(session[k]);
-                            // alert('new-session');
-                            // card_temp_1.src = "png/z02.png";
-                            // card_temp_2.src = "png/z02.png"
+                            flag  *= (-1);
+
                             break;
                         }
                     }
@@ -88,4 +104,4 @@ new_game.addEventListener('click', function(){
         }
         
     }
-}) 
+}, false) 
